@@ -21,4 +21,5 @@ const todoSchema = new Schema<ITodo>({
 },
     { timestamps: true }); //zapisywanie czasu utworzenia i edycji
 //3. zdefiniowanie modelu
-export const Todo = model<ITodo>('Todo', todoSchema);
+const Todo = model<ITodo>('Todo', todoSchema);
+export default Todo;

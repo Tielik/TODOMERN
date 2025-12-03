@@ -7,7 +7,7 @@
     "outDir": "./dist",
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "es2020",
     "target": "ES2020",
     "types": [],
     // For nodejs:
@@ -31,13 +31,19 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
+    // "verbatimModuleSyntax": true,
+    // "isolatedModules": true,
     // "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-    "moduleResolution": "nodenext",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "noEmit": true,
+    // "baseUrl": "./src",
+    // "paths": {
+    //   "models/*": [
+    //     "models/*"
+    //   ]
+    // }
   }
 }
