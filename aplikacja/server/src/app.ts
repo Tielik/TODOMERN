@@ -2,12 +2,18 @@ import 'dotenv/config';
 import express from 'express';
 import type { Request, Response } from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors'; // 👈 1. Importujemy cors
 
 // routery
 import todoRouters from './routes/todoRoutes.ts';
 
 const app = express();
 const PORT = 3000;
+// Middleware:
+app.use(express.json());
+app.use(cors()); //2. Aktywujemy cors dla wszystkich źródeł
+// Teraz serwer doda nagłówek 'Access-Control-Allow-Origin: *'
+// (lub podobny), który odblokuje komunikację z Reactem (5173).
 
 app.use(express.json());
 app.get('/', (req: Request, res: Response) => {

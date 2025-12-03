@@ -7,6 +7,9 @@ import * as Todo from '../models/Todo.ts'; // Importujemy nasz model
 export const createTodo = async (req: Request, res: Response) => {
     // 2. Pobieramy dane z ciała żądania (body)
     const { title, description, dueDate } = req.body;
+    if (!title) {
+        return res.status(400).json({ message: "Tytul jest wymagany." });
+    }
 
     try {
         // 3. Tworzymy nowy dokument na podstawie modelu Todo
