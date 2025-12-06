@@ -19,11 +19,20 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Lista Zadań (To-Do App) 📝</h1>
+      <h1 >Lista Zadań (To-Do App) 📝</h1>
       {/*te ontoadded to props który  */}
-      <TodoForm onTodoAdded={fetchTodos} />
+      <h1><TodoForm onTodoAdded={fetchTodos} /> </h1>
       {/*jest to poto że jak konponent odpali intododeleted to on odpali fetch todos resetuje uwu */}
-      <TodoItem todos={todos} onTodoDeleted={fetchTodos} />
+      <table>
+        <tr>
+          <th>Nie wykonane Zadania</th>
+          <th>Wykonane Zadania</th>
+        </tr>
+        <tr>
+          <td><TodoItem todos={todos} onTodoDeleted={fetchTodos} filter={false} /> </td>
+          <td><TodoItem todos={todos} onTodoDeleted={fetchTodos} filter={true} /> </td>
+        </tr>
+      </table>
 
     </div>
   );

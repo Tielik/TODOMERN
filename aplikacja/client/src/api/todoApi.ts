@@ -30,3 +30,13 @@ export const deleteTodo = async (id: string) => {
         return null;
     }
 };
+
+export const updateTodo = async (id: string, todo: any) => {
+    try {
+        const response = await axios.put(`${API_URL}/${id}`, todo);
+        return response.data;
+    } catch (error) {
+        console.error("Błąd podczas edytowania zadania:", error);
+        return null;
+    }
+};

@@ -49,16 +49,31 @@ export const getTodoById = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Nie udało się pobrać zadania.", error: error.message });
     }
 }
+// server/src/controllers/todoController.ts
+// ... (inne importy i funkcje)
+
 export const updateTodo = async (req: Request, res: Response) => {
+    // 1. Pobieramy ID z parametrów URL (np. /api/todos/123)
+    const { id } = req.params;
+    // 2. Pobieramy dane do aktualizacji z ciała żądania (tytuł, opis, etc.)
+    const updateData = req.body;
+
     try {
-        const todo = await Todo.default.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (todo === null) {
-            return res.status(404).json({ message: "Nie znaleziono zadania." });
+        // 3. Mongoose: Znajdujemy zadanie po ID i aktualizujemy je
+        const updatedTodo = await Todo.default.findByIdAndUpdate(id, updateData, { new: true });
+        // Opcja { new: true } jest kluczowa: mówi Mongoose, żeby zwróciło DOKUMENT PO AKTUALIZACJI, 
+        // a nie przed nią.
+
+        if (!updatedTodo) {
+            // Jeśli Mongoose nie znajdzie pasującego ID, zwraca 404
+            return res.status(404).json({ message: "Nie znaleziono zadania do aktualizacji. 🔍" });
         }
-        res.status(200).json(todo);
-    }
-    catch (error) {
-        res.status(500).json({ message: "Nie udało się edytować zadania.", error: error.message });
+
+        // 4. Wysyłamy zaktualizowany dokument z powrotem do klienta
+        res.status(200).json(updatedTodo);
+    } catch (error) {
+        // Błąd serwera (np. niepoprawny format ID lub błąd MongoDB)
+        res.status(500).json({ message: "Nie udało się zaktualizować zadania. ❌", error: error.message });
     }
 }
 export const deleteTodo = async (req: Request, res: Response) => {
