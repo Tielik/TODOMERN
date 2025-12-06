@@ -2,14 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import { getAllTodos } from './api/todoApi';
 import TodoForm from './components/TodoForm';
+import TodoItem from './components/TodoItem';
 function App() {
   const [todos, setTodos] = useState([]);
 
+  const fetchTodos = async () => {
+    const data = await getAllTodos();
+    setTodos(data);
+  };
+  // odpali sie przy uruchomieniu apki
   useEffect(() => {
-    const fetchTodos = async () => {
-      const data = await getAllTodos();
-      setTodos(data);
-    };
     fetchTodos();
   }, []);
 
@@ -18,16 +20,11 @@ function App() {
   return (
     <div className="container">
       <h1>Lista Zadań (To-Do App) 📝</h1>
-      {/* Tutaj będziemy wyświetlać zadania */}
-      <TodoForm />
-      {todos.map((todo) => (
-        <div key={todo._id}>
-          <h2>{todo.title}</h2>
-          <p>{todo.description}</p>
-          <p>{todo.dueDate}</p>
-          <p>{todo.isCompleted.toString()}</p>
-        </div>
-      ))}
+      {/*te ontoadded to props który  */}
+      <TodoForm onTodoAdded={fetchTodos} />
+      {/*jest to poto że jak konponent odpali intododeleted to on odpali fetch todos resetuje uwu */}
+      <TodoItem todos={todos} onTodoDeleted={fetchTodos} />
+
     </div>
   );
 }

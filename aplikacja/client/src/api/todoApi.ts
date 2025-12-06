@@ -21,3 +21,12 @@ export const postTodo = async (todo: any) => {
         return null;
     }
 };
+export const deleteTodo = async (id: string) => {
+    try {
+        const response = await axios.delete(`${API_URL}/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Błąd podczas usuwania zadania:", error);
+        return null;
+    }
+};
